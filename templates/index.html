@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>facts.bar</title>
+    <title>de.facto</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>facts.bar</h1>
+            <h1>de.facto</h1>
             <p>Uuendatud: {{ datetime.now().strftime('%d-%b-%y %H:%M ET') }}</p>
 
             <!-- Topic Cloud Section -->
             <div class="topic-cloud">
                 <a href="{{ url_for('home', topic='all') }}" class="{% if selected_topic == 'all' %}selected{% endif %}">#all</a>
                 {% for topic in all_topics %}
-                <a href="{{ url_for('home', topic=topic) }}" class="{% if selected_topic == topic %}selected{% endif %}">{{ topic }}</a>
+                <a href="{{ url_for('home', topic=topic) }}" class="{% if selected_topic == topic %}selected{% endif %}">#{{ topic }}</a>
                 {% endfor %}
             </div>
         </header>
