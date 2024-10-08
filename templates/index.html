@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>facts.bar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>facts.bar</h1>
+            <p>Uuendatud: {{ datetime.now().strftime('%d-%b-%y %H:%M ET') }}</p>
+
+            <!-- Topic Cloud Section -->
+            <div class="topic-cloud">
+                <a href="{{ url_for('home', topic='all') }}" class="{% if selected_topic == 'all' %}selected{% endif %}">#all</a>
+                {% for topic in all_topics %}
+                <a href="{{ url_for('home', topic=topic) }}" class="{% if selected_topic == topic %}selected{% endif %}">{{ topic }}</a>
+                {% endfor %}
+            </div>
+        </header>
+
+        <div class="content">
+            {% for date, news_items in news_by_date.items() %}
+            {% if news_items %}  <!-- Only display date sections with news items -->
+            <div class="date-section">
+                <h2>{{ date }}</h2>
+                <div class="news-section">
+                    {% for item in news_items %}
+                    <div class="news-item">
+                        <span class="time">{{ item.time }}</span>
+                        <div class="news-content">
+                            <h3><span class="topic">{{ item.topic }}: </span>{{ item.title }}</h3>
+                            <p>{{ item.description }} / {{ item.source }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
